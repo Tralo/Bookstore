@@ -1,6 +1,6 @@
 package com.servlet.bootstore.web;
 
-public class CriteriBook {
+public class CriteriaBook {
 	
 	private float minPrice = 0;
 	private float maxPrice = Integer.MAX_VALUE;
@@ -31,7 +31,7 @@ public class CriteriBook {
 		this.pageNo = pageNo;
 	}
 
-	public CriteriBook(float minPrice, float maxPrice, int pageNo) {
+	public CriteriaBook(float minPrice, float maxPrice, int pageNo) {
 		super();
 		this.minPrice = minPrice;
 		this.maxPrice = maxPrice;
