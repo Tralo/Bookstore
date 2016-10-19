@@ -37,6 +37,13 @@ public class CriteriaBook {
 		this.maxPrice = maxPrice;
 		this.pageNo = pageNo;
 	}
+
+	@Override
+	public String toString() {
+		return "CriteriaBook [minPrice=" + minPrice + ", maxPrice=" + maxPrice
+				+ ", pageNo=" + pageNo + "]";
+	}
+	
 	
 	
 	
