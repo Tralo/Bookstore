@@ -8,7 +8,7 @@ import com.servlet.bootstore.domain.ShoppingCartItem;
 import com.servlet.bootstore.web.CriteriaBook;
 import com.servlet.bootstore.web.Page;
 
-public interface BookDAO {
+public interface BookDAO extends Dao<Book>{
 
 	/**
 	 * 根据 id 获取指定 Book 对象
