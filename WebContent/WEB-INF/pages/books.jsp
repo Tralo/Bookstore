@@ -14,6 +14,27 @@
 			window.location.href = href; 
 			return false;
 		});
+		$("#pageNo").change(function(){
+			//得到当前的页码
+			var pageNo = $(this).val();
+			//正则判断
+			var reg = /^\d+$/;
+			if(!reg.test(pageNo)){
+				$(this).val("");
+				alert("输入的页码不合法");
+				return;
+			}
+			//判断输入的页码是否在合法的范围内
+			var pageNo2 = parseInt(pageNo);
+			if(pageNo2 < 1 || pageNo2 > parseInt("${bookpage.totalPageNumber}")){
+				$(this).val("");
+				alert("输入的页码不合法");
+				return;
+			}
+			//翻页
+			var criteria = $(":hidden").serialize();
+			window.location.href = "bookServlet?method=getBooks&pageNo=" + pageNo2 + "&" + criteria;
+		});
 	})
 </script>
 <title>Insert title here</title>
@@ -54,6 +75,8 @@
 			&nbsp;&nbsp;
 			<a href="bookServlet?method=getBooks&pageNo=${bookpage.totalPageNumber }">末页</a>
 		</c:if>
+		&nbsp;&nbsp;
+		转到<input type="text" size="1" id="pageNo" name="pageNo"/>页
 	</center>
 
 </body>
