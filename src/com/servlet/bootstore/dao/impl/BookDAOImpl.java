@@ -30,7 +30,7 @@ public class BookDAOImpl extends BaseDAO<Book> implements BookDAO{
 	@Override
 	public long getTotalBookNumber(CriteriaBook cb) {
 		String sql =  "SELECT count(id) FROM mybooks WHERE price >= ? AND price <= ?";
-		System.out.println(cb);
+//		System.out.println(cb);
 		return getSingleVal(sql, cb.getMinPrice(),cb.getMaxPrice());
 	}
 

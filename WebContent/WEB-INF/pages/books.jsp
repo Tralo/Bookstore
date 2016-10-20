@@ -5,13 +5,26 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script type="text/javascript" src="script/jquery-1.7.2.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		$("a").click(function(){
+			var serializeVal = $(":hidden").serialize();
+			var href = this.href + "&" + serializeVal;
+			window.location.href = href; 
+			return false;
+		});
+	})
+</script>
 <title>Insert title here</title>
 </head>
 <body>
+	<input type="hidden" name="minPrice" value="${param.minPrice }"/>
+	<input type="hidden" name="minPrice" value="${param.maxPrice }"/>
 	<center>
 		<br></br>
 		<form action="bookServlet?method=getBooks" method="post">
-			Price: <input type="text" size="1" name="minPrice"/> - <input type="text" size="1" name="maxPrice"/>
+			Price: <input type="text" size="10" name="minPrice"/> - <input type="text" size="10" name="maxPrice"/>
 			<input type="submit" value="Submit"/>
 			
 		</form>

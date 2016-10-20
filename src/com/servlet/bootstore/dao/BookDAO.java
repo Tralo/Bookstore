@@ -8,10 +8,11 @@ import com.servlet.bootstore.domain.ShoppingCartItem;
 import com.servlet.bootstore.web.CriteriaBook;
 import com.servlet.bootstore.web.Page;
 
-public interface BookDAO extends Dao<Book>{
+public interface BookDAO extends Dao<Book> {
 
 	/**
 	 * 根据 id 获取指定 Book 对象
+	 * 
 	 * @param id
 	 * @return
 	 */
@@ -19,6 +20,7 @@ public interface BookDAO extends Dao<Book>{
 
 	/**
 	 * 根据传入的 CriteriaBook 对象返回对应的 Page 对象
+	 * 
 	 * @param cb
 	 * @return
 	 */
@@ -26,30 +28,34 @@ public interface BookDAO extends Dao<Book>{
 
 	/**
 	 * 根据传入的 CriteriaBook 对象返回其对应的记录数
+	 * 
 	 * @param cb
 	 * @return
 	 */
 	public abstract long getTotalBookNumber(CriteriaBook cb);
 
 	/**
-	 * 根据传入的 CriteriaBook 和 pageSize 返回当前页对应的 List 
+	 * 根据传入的 CriteriaBook 和 pageSize 返回当前页对应的 List
+	 * 
 	 * @param cb
 	 * @param pageNo
 	 * @param pageSize
 	 * @return
 	 */
-	public abstract List<Book> getPageList(CriteriaBook cb,int pageSize);
+	public abstract List<Book> getPageList(CriteriaBook cb, int pageSize);
 
 	/**
 	 * 返回指定 id 的 book 的 storeNumber 字段的值
+	 * 
 	 * @param id
 	 * @return
 	 */
 	public abstract int getStoreNumber(Integer id);
 
 	/**
-	 * 根据传入的 ShoppingCartItem 的集合, 
-	 * 批量更新 books 数据表的 storenumber 和 salesnumber 字段的值
+	 * 根据传入的 ShoppingCartItem 的集合, 批量更新 books 数据表的 storenumber 和 salesnumber
+	 * 字段的值
+	 * 
 	 * @param items
 	 */
 	public abstract void batchUpdateStoreNumberAndSalesAmount(
