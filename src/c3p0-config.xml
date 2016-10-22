@@ -6,7 +6,7 @@
   
   	<property name="user">root</property>
     <property name="password">123456</property>
-    <property name="jdbcUrl">jdbc:mysql:///bookstore</property>
+    <property name="jdbcUrl">jdbc:mysql:///bookstore?useUnicode=true&amp;characterEncoding=UTF-8</property>
     <property name="driverClass">com.mysql.jdbc.Driver</property>
   
     <property name="acquireIncrement">2</property>
