@@ -15,4 +15,8 @@ public class BookService {
 		
 	}
 
+	public Book getBook(int id) {
+		return bookDAO.getBook(id);
+	}
+
 }

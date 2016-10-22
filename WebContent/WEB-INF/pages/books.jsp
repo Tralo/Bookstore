@@ -41,7 +41,7 @@
 </head>
 <body>
 	<input type="hidden" name="minPrice" value="${param.minPrice }"/>
-	<input type="hidden" name="minPrice" value="${param.maxPrice }"/>
+	<input type="hidden" name="maxPrice" value="${param.maxPrice }"/>
 	<center>
 		<br></br>
 		<form action="bookServlet?method=getBooks" method="post">
@@ -53,7 +53,8 @@
 		<table cellpadding="10">
 			<c:forEach items="${bookpage.list }" var="book">
 				<tr>
-					<td><a href="">${book.title }</a><br>${book.author }</td>
+					<td><a href="bookServlet?method=getBook&pageNo=${bookpage.pageNo }&id=${book.id }">${book.title }</a>
+					<br>${book.author }</td>
 					
 					<td>${book.price }</td>
 					<td><a href="">加入购物车</a></td>
