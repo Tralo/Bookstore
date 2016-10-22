@@ -38,7 +38,7 @@
 <body>
 	<center>
 		<c:if test="${param.title != null }">
-			您已经将 ${param.title } 放入到购物车中.
+			您已经将 ${param.title } 放入到购物车中. 
 			<br><br>
 		</c:if>
 		<c:if test="${!empty sessionScope.ShoppingCart.books }">

@@ -30,6 +30,7 @@
 	})
 </script>
 <title>Insert title here</title>
+<%@ include file="/commons/queryCondition.jsp" %>
 </head>
 <body>
 	<center>
@@ -56,7 +57,7 @@
 			</tr>
 			<tr>
 				<td colspan="4">
-					<a href="">继续购物</a>
+					<a href="bookServlet?method=getBooks&pageNo=${param.pageNo }">继续购物</a>
 					&nbsp;&nbsp;
 					<a href="bookServlet?method=clear">清空购物车</a>
 					&nbsp;&nbsp;
