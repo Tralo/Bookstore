@@ -6,20 +6,10 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="script/jquery-1.7.2.min.js"></script>
-<script type="text/javascript">
-	$(function() {
-		$("a").click(function() {
-			var serializeVal = $(":hidden").serialize();
-			var href = this.href + "&" + serializeVal;
-			window.location.href = href;
-			return false;
-		});
-	})
-</script>
+<%@ include file="/commons/queryCondition.jsp" %>
 </head>
 <body>
-	<input type="hidden" name="minPrice" value="${param.minPrice }" />
-	<input type="hidden" name="maxPrice" value="${param.maxPrice }" />
+	
 	<center>
 		<br>
 		<br> Title: ${book.title } <br>

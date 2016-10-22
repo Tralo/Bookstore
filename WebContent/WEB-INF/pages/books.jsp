@@ -8,12 +8,7 @@
 <script type="text/javascript" src="script/jquery-1.7.2.min.js"></script>
 <script type="text/javascript">
 	$(function(){
-		$("a").click(function(){
-			var serializeVal = $(":hidden").serialize();
-			var href = this.href + "&" + serializeVal;
-			window.location.href = href; 
-			return false;
-		});
+		
 		$("#pageNo").change(function(){
 			//得到当前的页码
 			var pageNo = $(this).val();
@@ -37,11 +32,10 @@
 		});
 	})
 </script>
+<%@ include file="/commons/queryCondition.jsp" %>
 <title>Insert title here</title>
 </head>
 <body>
-	<input type="hidden" name="minPrice" value="${param.minPrice }"/>
-	<input type="hidden" name="maxPrice" value="${param.maxPrice }"/>
 	<center>
 		<br></br>
 		<form action="bookServlet?method=getBooks" method="post">
