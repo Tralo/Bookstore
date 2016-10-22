@@ -10,7 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.servlet.bootstore.domain.Book;
+import com.servlet.bootstore.domain.ShoppingCart;
 import com.servlet.bootstore.service.BookService;
+import com.servlet.bootstore.web.BookStoreWebUtils;
 import com.servlet.bootstore.web.CriteriaBook;
 import com.servlet.bootstore.web.Page;
 
@@ -84,9 +86,29 @@ public class BookServlet extends HttpServlet {
 			request.setAttribute("book", book);
 			request.getRequestDispatcher("/WEB-INF/pages/book.jsp").forward(request, response);
 		}
-		
-		
 	}
 	
+	
+	protected  void addToCart(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String idStr = request.getParameter("id");
+		int id = -1;
+		boolean flag = false;
+		
+		try {
+			id = Integer.parseInt(idStr);
+		} catch (Exception e) {}
+		
+		if(id > 0){
+			ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+			
+			flag = bookService.addToCart(id,sc);
+		}
+		if(flag){
+			getBooks(request, response);
+			return;
+		}
+		response.sendRedirect(request.getContextPath() + "error-1.jsp");
+	}
 
 }
