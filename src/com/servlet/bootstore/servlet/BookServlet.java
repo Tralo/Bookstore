@@ -126,6 +126,10 @@ public class BookServlet extends HttpServlet {
 		}
 		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
 		bookService.removeItemFromShoppingCart(sc, id);
+		if(sc.isEmpty()){
+			request.getRequestDispatcher("/WEB-INF/pages/emptycart.jsp").forward(request, response);
+			return;
+		}
 		request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
 		
 	}
