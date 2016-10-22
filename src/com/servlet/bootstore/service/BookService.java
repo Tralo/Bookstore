@@ -34,4 +34,8 @@ public class BookService {
 		sc.removeItem(id);
 	}
 
+	public void clearShoppingCart(ShoppingCart sc) {
+		sc.clear();
+	}
+
 }

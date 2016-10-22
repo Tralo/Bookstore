@@ -129,5 +129,10 @@ public class BookServlet extends HttpServlet {
 		request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
 		
 	}
-
+	protected  void clear(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+		bookService.clearShoppingCart(sc);
+		request.getRequestDispatcher("/WEB-INF/pages/emptycart.jsp").forward(request, response);
+	}
 }

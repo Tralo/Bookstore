@@ -18,6 +18,15 @@
 			
 			return false;
 		});
+		$('.clear').click(function(){
+		
+			var flag = confirm("确定要清空购物车吗?");
+			if(flag){
+				return true;
+			}
+			
+			return false;
+		});
 	})
 </script>
 <title>Insert title here</title>
@@ -49,9 +58,9 @@
 				<td colspan="4">
 					<a href="">继续购物</a>
 					&nbsp;&nbsp;
-					<a href="">清空购物车</a>
+					<a href="bookServlet?method=clear">清空购物车</a>
 					&nbsp;&nbsp;
-					<a href="">结帐</a>
+					<a href="" class="clear">结帐</a>
 				</td>
 			</tr>
 		</table>
