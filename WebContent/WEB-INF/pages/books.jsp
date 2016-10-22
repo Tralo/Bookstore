@@ -42,7 +42,7 @@
 			<br><br>
 		</c:if>
 		<c:if test="${empty session.ShoppingCart }">
-			您的购物车中有 ${sessionScope.ShoppingCart.bookNumber } 本书,<a href="cart.jsp?pageNo=${bookpage.pageNo }">查看购物车</a>
+			您的购物车中有 ${sessionScope.ShoppingCart.bookNumber } 本书,<a href="bookServlet?method=toCartPage&pageNo=${bookpage.pageNo }">查看购物车</a>
 		</c:if>
 	
 		<br></br>

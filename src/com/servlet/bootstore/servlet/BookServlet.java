@@ -110,5 +110,10 @@ public class BookServlet extends HttpServlet {
 		}
 		response.sendRedirect(request.getContextPath() + "error-1.jsp");
 	}
+	
+	protected  void toCartPage(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
+	}
 
 }
