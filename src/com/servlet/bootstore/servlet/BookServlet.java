@@ -115,5 +115,19 @@ public class BookServlet extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
 	}
+	
+	protected  void remove(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String idStr = request.getParameter("id");
+		int id = -1;
+		try {
+			id = Integer.parseInt(idStr);
+		} catch (Exception e) {
+		}
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+		bookService.removeItemFromShoppingCart(sc, id);
+		request.getRequestDispatcher("/WEB-INF/pages/cart.jsp").forward(request, response);
+		
+	}
 
 }

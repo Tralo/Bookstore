@@ -30,4 +30,8 @@ public class BookService {
 		return false;
 	}
 
+	public void removeItemFromShoppingCart(ShoppingCart sc, int id) {
+		sc.removeItem(id);
+	}
+
 }
