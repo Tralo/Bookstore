@@ -36,7 +36,6 @@ public class EncodingFilter implements Filter {
 		request.setCharacterEncoding(encoding);
 		chain.doFilter(request, response);*/
 		String encoding = filterConfig.getServletContext().getInitParameter("encoding");
-		System.out.println("endocing:  " + encoding);
 		request.setCharacterEncoding(encoding);
 		chain.doFilter(request, response);
 	}

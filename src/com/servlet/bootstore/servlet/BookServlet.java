@@ -165,7 +165,6 @@ public class BookServlet extends HttpServlet {
 		result.put("bookNumber", sc.getBookNumber());
 		result.put("totalMoney", sc.getTotalMoney());
 		String jsonStr = new Gson().toJson(result);
-		System.out.println(jsonStr);
 		response.setContentType("text/javascript");
 		response.getWriter().write(jsonStr);
 	}
