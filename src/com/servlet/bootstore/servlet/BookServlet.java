@@ -2,6 +2,8 @@ package com.servlet.bootstore.servlet;
 
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.servlet.bootstore.domain.Book;
 import com.servlet.bootstore.domain.ShoppingCart;
 import com.servlet.bootstore.service.BookService;
@@ -138,5 +141,32 @@ public class BookServlet extends HttpServlet {
 		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
 		bookService.clearShoppingCart(sc);
 		request.getRequestDispatcher("/WEB-INF/pages/emptycart.jsp").forward(request, response);
+	}
+	
+	protected  void updateItemQuantity(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		//4. 在updateItemQuantity 方法中，获取quantity,id, 再获取购物车对象，调用 service 的方法修改
+		String idStr = request.getParameter("id");
+		String quantityStr = request.getParameter("quantity");
+		int id = -1;
+		int quantity = -1;
+		try {
+			id = Integer.parseInt(idStr);
+			quantity = Integer.parseInt(quantityStr);
+		} catch (Exception e) {
+		}
+		ShoppingCart sc = BookStoreWebUtils.getShoppingCart(request);
+		
+		if(id > 0 && quantity > 0){
+			bookService.updateItemQuantity(sc,id,quantity);
+		}
+		//5. 传回 json 数据: bookNumber: xxx,totalMoney: xxx
+		Map<String,Object> result = new HashMap<String,Object>();
+		result.put("bookNumber", sc.getBookNumber());
+		result.put("totalMoney", sc.getTotalMoney());
+		String jsonStr = new Gson().toJson(result);
+		System.out.println(jsonStr);
+		response.setContentType("text/javascript");
+		response.getWriter().write(jsonStr);
 	}
 }
