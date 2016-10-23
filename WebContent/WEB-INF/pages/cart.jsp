@@ -45,8 +45,6 @@
 				var $tr = $(this).parent().parent();
 				var title = $.trim($tr.find("td:first").text());
 				if (quantity == 0) {
-					var serializeVal = $(":hidden").serialize();
-				
 					var flag2 = confirm("确定要删除" + title + "吗?");
 					if (!flag2) {
 						$(this).val($(this).attr("class"));
