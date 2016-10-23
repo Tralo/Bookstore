@@ -52,10 +52,11 @@
 						$(this).val($(this).attr("class"));
 						return;
 					}
-					var href = $tr.find("td:last").find("a").attr("href");
-					window.location.href = href + "&" + serializeVal;;
+					//得到了 a 节点
+					var $a = $tr.find("td:last").find("a");
+					//执行 a 节点的 onclick 响应函数
+					$a[0].onclick();
 					return;
-
 				}
 
 				var flag = confirm("确定要修改" + title + "的数量吗?");
