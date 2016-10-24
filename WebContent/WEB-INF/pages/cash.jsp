@@ -17,6 +17,9 @@
 		<c:if test="${requestScope.errors != null }">
 			<font color="red">${requestScope.errors }</font>
 		</c:if>
+		<c:if test="${requestScope.errors2 != null }">
+			<font color="red">${requestScope.errors2 }</font>
+		</c:if>
 		<form action="bookServlet?method=cash" method="post">
 			<table cellpadding="10">
 				<tr>

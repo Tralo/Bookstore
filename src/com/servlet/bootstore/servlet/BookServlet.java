@@ -12,9 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.servlet.bootstore.domain.Account;
 import com.servlet.bootstore.domain.Book;
 import com.servlet.bootstore.domain.ShoppingCart;
+import com.servlet.bootstore.domain.ShoppingCartItem;
+import com.servlet.bootstore.domain.User;
+import com.servlet.bootstore.service.AccountService;
 import com.servlet.bootstore.service.BookService;
+import com.servlet.bootstore.service.UserService;
 import com.servlet.bootstore.web.BookStoreWebUtils;
 import com.servlet.bootstore.web.CriteriaBook;
 import com.servlet.bootstore.web.Page;
@@ -195,6 +200,19 @@ public class BookServlet extends HttpServlet {
 		String accountId = request.getParameter("accountId");
 		String errors = validateFormField(username, accountId);
 //		System.out.println("错误信息:   "+errors.toString());
+		if(errors.equals("")){//表单验证通过
+			errors = validateUser(username, accountId);
+			if(errors.equals("")){//用户名帐号通过
+				errors = validateBookStoreNumber(request);
+				if(errors.equals("")){//库存验证通过
+					errors = validateBalance(request,accountId);
+					if(errors.equals("")){//余额通过
+						
+					}
+					
+				}
+			}
+		}
 		if(!errors.equals("")){
 			request.setAttribute("errors", errors);
 			request.getRequestDispatcher("/WEB-INF/pages/cash.jsp").forward(request, response);
@@ -203,6 +221,76 @@ public class BookServlet extends HttpServlet {
 		
 	}
 	
+	
+	
+	private UserService userService = new UserService();
+	
+	/**
+	 * 验证余额是否充足
+	 * @param accountId
+	 * @return
+	 */
+	private String validateBalance(HttpServletRequest request,String accountId){
+		
+		StringBuffer errors = new StringBuffer("");
+		ShoppingCart cart = BookStoreWebUtils.getShoppingCart(request);
+		Account account = accountService.getAccount(Integer.parseInt(accountId));
+		if(cart.getTotalMoney() > account.getBalance()){
+			errors.append("余额不足!");
+		}
+		return errors.toString();
+	}
+	
+	private AccountService accountService = new AccountService();
+	
+	/**
+	 * 验证库存是否充足
+	 * @param request
+	 * @return
+	 */
+	private String validateBookStoreNumber(HttpServletRequest request){
+		ShoppingCart cart = BookStoreWebUtils.getShoppingCart(request);
+		StringBuffer errors = new StringBuffer("");
+		for(ShoppingCartItem sci : cart.getItems()){
+			int quantity = sci.getQuantity();
+			int storeNumber = bookService.getBook(sci.getBook().getId()).getStoreNumber();
+			if(quantity > storeNumber){
+				errors.append(sci.getBook().getTitle() + "库存不足<br>");
+			}
+			
+		}
+		return errors.toString();
+	}
+	
+	
+	/**
+	 * 验证用户名和帐号是否匹配
+	 * @param username
+	 * @param accountId
+	 * @return
+	 */
+	private String validateUser(String username,String accountId){
+		boolean flag = false;
+		User user = userService.getUserByUserName(username);
+		if(user != null){
+			int myAccountId = user.getAccountId();
+			if(accountId.trim().equals(String.valueOf(myAccountId))){
+				flag = true;
+			}
+		} 
+		StringBuffer errors = new StringBuffer("");
+		if(!false){
+			errors.append("用户名和帐号不匹配");
+			
+		}
+		return errors.toString();
+	}
+	/**
+	 * 验证表单域是否符合基本的规则： 验证是否为空
+	 * @param username
+	 * @param accountId
+	 * @return
+	 */
 	private String validateFormField(String username,String accountId){
 		StringBuffer errors = new StringBuffer("");
 		if (username == null || username.trim().equals("")) {
