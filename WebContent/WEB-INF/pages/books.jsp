@@ -28,7 +28,7 @@
 			}
 			//翻页
 			var criteria = $(":hidden").serialize();
-			window.location.href = "bookServlet?method=getBooks&pageNo=" + pageNo2 + "&" + criteria;
+			window.location.href = "bookServlet?method=forwardPage&page=cart.jsp&pageNo=" + pageNo2 + "&" + criteria;
 		});
 	})
 </script>
@@ -42,7 +42,7 @@
 			<br><br>
 		</c:if>
 		<c:if test="${!empty sessionScope.ShoppingCart.books }">
-			您的购物车中有 ${sessionScope.ShoppingCart.bookNumber } 本书,<a href="bookServlet?method=toCartPage&pageNo=${bookpage.pageNo }">查看购物车</a>
+			您的购物车中有 ${sessionScope.ShoppingCart.bookNumber } 本书,<a href="bookServlet?method=forwardPage&page=cart&pageNo=${bookpage.pageNo }">查看购物车</a>
 		</c:if>
 	
 		<br></br>
