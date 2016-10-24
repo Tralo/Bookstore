@@ -1,5 +1,6 @@
 package com.servlet.bootstore.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -54,6 +55,20 @@ public class BookDAOImpl extends BaseDAO<Book> implements BookDAO{
 	@Override
 	public void batchUpdateStoreNumberAndSalesAmount(
 			Collection<ShoppingCartItem> items) {
+		String sql = "UPDATE mybooks SET salesAmount = salesAmount + ?, " +
+			"storeNumber = storeNumber - ? " + "WHERE id = ?";
+		Object[][] params = null;
+		params = new Object[items.size()][3];
+		List<ShoppingCartItem> scis = new ArrayList<>(items);
+		for(int i = 0; i < scis.size(); i++){
+			ShoppingCartItem item = scis.get(i);
+			params[i][0] = item.getQuantity();
+			params[i][1] = item.getQuantity();
+			params[i][2] = item.getBook().getId();
+		}
+		
+		batch(sql, params);
+		
 		
 	}
 

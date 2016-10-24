@@ -274,14 +274,13 @@ public class BookServlet extends HttpServlet {
 		User user = userService.getUserByUserName(username);
 		if(user != null){
 			int myAccountId = user.getAccountId();
-			if(accountId.trim().equals(String.valueOf(myAccountId))){
+			if(accountId.trim().equals("" +myAccountId)){
 				flag = true;
 			}
 		} 
 		StringBuffer errors = new StringBuffer("");
-		if(!false){
+		if(!flag){
 			errors.append("用户名和帐号不匹配");
-			
 		}
 		return errors.toString();
 	}
