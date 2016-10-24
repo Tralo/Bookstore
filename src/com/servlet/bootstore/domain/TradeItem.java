@@ -1,7 +1,7 @@
 package com.servlet.bootstore.domain;
 
 public class TradeItem {
-	private Integer tradeItemId;
+	private Integer itemId;
 	//和TradeItem关联的Book
 	private Book book;
 	
@@ -11,12 +11,14 @@ public class TradeItem {
 	
 	private Integer tradeId;
 
-	public Integer getTradeItemId() {
-		return tradeItemId;
+	
+
+	public Integer getItemId() {
+		return itemId;
 	}
 
-	public void setTradeItemId(Integer tradeItemId) {
-		this.tradeItemId = tradeItemId;
+	public void setItemId(Integer itemId) {
+		this.itemId = itemId;
 	}
 
 	public Book getBook() {
@@ -51,10 +53,10 @@ public class TradeItem {
 		this.tradeId = tradeId;
 	}
 
-	public TradeItem(Integer tradeItemId,  Integer bookId,int quantity,
+	public TradeItem(Integer itemId,  Integer bookId,int quantity,
 			Integer tradeId) {
 		super();
-		this.tradeItemId = tradeItemId;
+		this.itemId = itemId;
 		this.quantity = quantity;
 		this.bookId = bookId;
 		this.tradeId = tradeId;
@@ -67,7 +69,7 @@ public class TradeItem {
 
 	@Override
 	public String toString() {
-		return "TradeItem [tradeItemId=" + tradeItemId + ", quantity="
+		return "TradeItem [itemId=" + itemId + ", quantity="
 				+ quantity + ", bookId=" + bookId + "]";
 	}
 	

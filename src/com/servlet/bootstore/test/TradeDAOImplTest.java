@@ -16,7 +16,7 @@ public class TradeDAOImplTest {
 	@Test
 	public void testInsertTrade() {
 		Trade trade = new Trade();
-		trade.setUserId(3);
+		trade.setUserId(4);
 		trade.setTradeTime(new Date(new java.util.Date().getTime()));
 		tradeDAO.insert(trade);
 	}
