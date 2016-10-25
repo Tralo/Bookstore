@@ -1,17 +1,28 @@
 package com.servlet.bootstore.test;
 
+import java.sql.Connection;
 import java.sql.Date;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.servlet.bootstore.dao.TradeDAO;
 import com.servlet.bootstore.dao.impl.TradeDAOImpl;
+import com.servlet.bootstore.db.JDBCUtils;
 import com.servlet.bootstore.domain.Trade;
+import com.servlet.bootstore.web.ConnectionContext;
 
 public class TradeDAOImplTest {
 
 	private TradeDAO tradeDAO = new TradeDAOImpl();
+	
+
+	@Before
+	public void prepare(){
+		Connection connection = JDBCUtils.getConnection();
+		ConnectionContext.getInstance().bind(connection);
+	}
 	
 	@Test
 	public void testInsertTrade() {

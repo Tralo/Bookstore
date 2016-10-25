@@ -1,13 +1,17 @@
 package com.servlet.bootstore.test;
 
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.servlet.bootstore.dao.impl.BookDAOImpl;
+import com.servlet.bootstore.db.JDBCUtils;
 import com.servlet.bootstore.domain.Book;
 import com.servlet.bootstore.domain.ShoppingCartItem;
+import com.servlet.bootstore.web.ConnectionContext;
 import com.servlet.bootstore.web.CriteriaBook;
 import com.servlet.bootstore.web.Page;
 
@@ -15,6 +19,13 @@ public class BookDAOImplTest {
 	
 	private BookDAOImpl bookDao = new BookDAOImpl();
 
+
+	@Before
+	public void prepare(){
+		Connection connection = JDBCUtils.getConnection();
+		ConnectionContext.getInstance().bind(connection);
+	}
+	
 	@Test
 	public void testGetBook() {
 		Book book = bookDao.getBook(5);
