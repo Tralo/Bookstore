@@ -13,8 +13,8 @@ public class TradeDAOImpl extends BaseDAO<Trade> implements TradeDAO{
 	public void insert(Trade trade) {
 		String sql = "INSERT INTO trade (userid,tradetime) VALUES " +
 				"(?,?)";
-		update(sql, trade.getUserId(),trade.getTradeTime());
-		
+		long tradeId = insert(sql, trade.getUserId(),trade.getTradeTime());
+		trade.setTradeId((int)tradeId);
 	}
 
 	@Override

@@ -218,7 +218,11 @@ public class BookServlet extends HttpServlet {
 			request.getRequestDispatcher("/WEB-INF/pages/cash.jsp").forward(request, response);
 			return;
 		}
+		//验证通过执行具体的逻辑操作
 		
+		bookService.cash(BookStoreWebUtils.getShoppingCart(request),username,accountId);
+		
+		response.sendRedirect(request.getContextPath() + "/success.jsp");
 	}
 	
 	

@@ -1,9 +1,24 @@
 package com.servlet.bootstore.service;
 
+import java.sql.Date;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import com.servlet.bootstore.dao.AccountDAO;
 import com.servlet.bootstore.dao.BookDAO;
+import com.servlet.bootstore.dao.TradeDAO;
+import com.servlet.bootstore.dao.TradeItemDAO;
+import com.servlet.bootstore.dao.UserDAO;
+import com.servlet.bootstore.dao.impl.AccountDAOImpl;
 import com.servlet.bootstore.dao.impl.BookDAOImpl;
+import com.servlet.bootstore.dao.impl.TradeDAOImpl;
+import com.servlet.bootstore.dao.impl.TradeItemDAOImpl;
+import com.servlet.bootstore.dao.impl.UserDAOImpl;
 import com.servlet.bootstore.domain.Book;
 import com.servlet.bootstore.domain.ShoppingCart;
+import com.servlet.bootstore.domain.ShoppingCartItem;
+import com.servlet.bootstore.domain.Trade;
+import com.servlet.bootstore.domain.TradeItem;
 import com.servlet.bootstore.web.CriteriaBook;
 import com.servlet.bootstore.web.Page;
 
@@ -40,6 +55,41 @@ public class BookService {
 
 	public void updateItemQuantity(ShoppingCart sc, int id, int quantity) {
 		sc.updateItemQuantity(id, quantity);
+	}
+	
+	private AccountDAO accountDAO = new AccountDAOImpl();
+	private TradeDAO tradeDAO = new TradeDAOImpl();
+	private UserDAO userDAO = new UserDAOImpl();
+	private TradeItemDAO tradeItemDAO = new TradeItemDAOImpl();
+
+	public void cash(ShoppingCart sc, String username,
+			String accountId) {
+		//1. 更新 mybooks 数据相关记录的 salesamount 和 storenumber
+		bookDAO.batchUpdateStoreNumberAndSalesAmount(sc.getItems());
+		
+		//2. 更新余额 account 数据表的 balance
+		accountDAO.updateBalance(Integer.parseInt(accountId), sc.getTotalMoney());
+		
+		//3. 向 trade 数据表插入一条记录
+		Trade trade = new Trade();
+		trade.setTradeTime(new Date(new java.util.Date().getTime()));
+		trade.setUserId(userDAO.getUser(username).getUserId());
+		tradeDAO.insert(trade);
+		
+		//4. 向 tradeItem 数据表插入 n 条记录
+		Collection<TradeItem> items = new ArrayList<TradeItem>();
+		for(ShoppingCartItem sci : sc.getItems()){
+			TradeItem tradeItem = new TradeItem();
+			tradeItem.setBookId(sci.getBook().getId());
+			tradeItem.setTradeId(trade.getTradeId());
+			tradeItem.setQuantity(sci.getQuantity());
+			items.add(tradeItem);
+		}
+		
+		tradeItemDAO.batchSave(items);
+		//5. 清空购物车
+		sc.clear(); 
+		
 	}
 
 }
