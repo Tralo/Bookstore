@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h4>您请求的页面不存在</h4>
+	<h4>您请求的页面不存在 或 操作错误！</h4>
+	<a href="index.jsp">返回</a>
 </body>
 </html>

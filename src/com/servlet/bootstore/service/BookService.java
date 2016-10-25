@@ -1,6 +1,8 @@
 package com.servlet.bootstore.service;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -14,6 +16,7 @@ import com.servlet.bootstore.dao.impl.BookDAOImpl;
 import com.servlet.bootstore.dao.impl.TradeDAOImpl;
 import com.servlet.bootstore.dao.impl.TradeItemDAOImpl;
 import com.servlet.bootstore.dao.impl.UserDAOImpl;
+import com.servlet.bootstore.db.JDBCUtils;
 import com.servlet.bootstore.domain.Book;
 import com.servlet.bootstore.domain.ShoppingCart;
 import com.servlet.bootstore.domain.ShoppingCartItem;
@@ -64,6 +67,22 @@ public class BookService {
 
 	public void cash(ShoppingCart sc, String username,
 			String accountId) {
+		
+		Connection connection = null;
+		try {
+			connection = JDBCUtils.getConnection();
+			connection.setAutoCommit(false);
+			//DAO操作，需传入 connection 对象
+			connection.commit();
+		} catch (Exception e) {
+			try {
+				connection.rollback();
+			} catch (SQLException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} finally{
+		}
 		//1. 更新 mybooks 数据相关记录的 salesamount 和 storenumber
 		bookDAO.batchUpdateStoreNumberAndSalesAmount(sc.getItems());
 		
