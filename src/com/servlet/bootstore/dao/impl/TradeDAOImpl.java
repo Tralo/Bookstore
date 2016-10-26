@@ -1,7 +1,6 @@
 package com.servlet.bootstore.dao.impl;
 
-import java.sql.Date;
-import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 import com.servlet.bootstore.dao.TradeDAO;
@@ -20,10 +19,10 @@ public class TradeDAOImpl extends BaseDAO<Trade> implements TradeDAO{
 	@Override
 	public Set<Trade> getTradesWithUserId(Integer userId) {
 		String sql = "SELECT tradeId, userId, tradeTime FROM trade "
-				+ "WHERE userId = ?";
+				+ "WHERE userId = ? ORDER BY tradeTime DESC";
 		
 		
-		return new HashSet<>(queryForList(sql, userId));
+		return new LinkedHashSet<Trade>(queryForList(sql, userId));
 	}
 
 }
